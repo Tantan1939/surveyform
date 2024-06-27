@@ -1,0 +1,23 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="container col-md-6">
+
+        {% for key_q, value_q in questions.items %}
+            <p> {{forloop.counter}}. {{value_q}} </p>
+
+            {% for key_c, value_c in choices.items %}
+                <input type="radio" class="btn-check" name="{{key_q}}" id="{{key_q}}-{{key_c}}" autocomplete="off" value="{{key_c}}" required>
+                <label class="btn btn-outline-success" for="{{key_q}}-{{key_c}}"> {{value_c}} </label>
+            {% endfor %}
+        {% endfor %}
+
+        <input type="submit" value="Submit" class="btn btn-primary btn-block mb-4">
+    </div>
+</form>
+
+{% endblock content %}
