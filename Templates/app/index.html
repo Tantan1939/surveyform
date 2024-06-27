@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form method="post">
+<!-- <form method="post">
     {% csrf_token %}
 
     <div class="container col-md-6">
@@ -18,6 +18,61 @@
 
         <input type="submit" value="Submit" class="btn btn-primary btn-block mb-4">
     </div>
+</form> -->
+
+<br>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="container col-md-4">
+        {% for key_q, value_q in questions.items %}
+        <div class="question-box mb-4 p-3 rounded">
+            <h6>{{ forloop.counter }}. {{ value_q }}</h6>
+
+            <div class="choices">
+                {% for key_c, value_c in choices.items %}
+                <div class="form-check mb-2">
+                    <input type="radio" class="form-check-input btn-check" name="{{ key_q }}" id="{{ key_q }}-{{ key_c }}" autocomplete="off" value="{{ key_c }}" required>
+                    <label class="form-check-label btn btn-outline-success rounded" for="{{ key_q }}-{{ key_c }}">{{ value_c }}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <input type="submit" value="Submit" class="btn btn-primary btn-block mb-4">
+    </div>
 </form>
+
+<style>
+    /* Custom styles for the survey form */
+
+    .question-box {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    .choices .form-check-label {
+        display: block;
+        text-align: left;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .choices .form-check-input {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+
+    .choices .form-check-label.active {
+        background-color: #28a745;
+        color: white;
+        border-color: #28a745;
+    }
+</style>
 
 {% endblock content %}
